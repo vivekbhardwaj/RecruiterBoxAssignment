@@ -12,11 +12,11 @@ class Test(TestBase):
             self.driver.get(self.url)
             
             
-            ''' h_page = HomePage()
+            h_page = HomePage()
             
             f_page = h_page.seachPlace("Sicily,Italy")
             
-            f_page.selectExperience()'''
+            f_page.selectExperience()
             
             #f_page.selectTodayDate()
                         
