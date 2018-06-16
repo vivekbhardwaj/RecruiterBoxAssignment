@@ -1,26 +1,33 @@
-'''
-Created on 17-May-2018
-
-@author: Vivek Pathak
-
-This python class deals with the common functionalities needed by each test case
-'''
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ChromeOptions
+import unittest
 
-class TestBase():
+class TestBase(unittest.TestCase):
     
     driver = None
-    def __init__(self, browser):
-        if browser == "firefox":
+    
+    def __init__(self,testName,browser):
+        
+        self.browser = browser
+        super(TestBase,self).__init__(testName)
+    
+    def setUp(self):
+        
+        if self.browser == "firefox":
             TestBase.driver = webdriver.Firefox()
-        elif browser == "chrome":
+            
+        elif self.browser == "chrome":
             options = ChromeOptions()
             options.add_argument("--start-maximized")
             TestBase.driver = webdriver.Chrome(chrome_options=options)
+        self.url = "https://www.airbnb.co.in/"
+        self.driver = TestBase.getdriver()
         TestBase.driver.implicitly_wait(10)
+        
+    def tearDown(self):
+        self.driver.quit()
             
     @staticmethod
     def getdriver():
